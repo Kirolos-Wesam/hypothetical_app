@@ -1,4 +1,4 @@
-package com.appfactory.hypotheticalapp.hypothetical_app
+package com.appfactory.hypotheticalapp
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "497670780886",
+    "project_id": "hypothetical-app-e10fc",
+    "storage_bucket": "hypothetical-app-e10fc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:497670780886:android:fe988a5f8a7d02cdf39677",
+        "android_client_info": {
+          "package_name": "com.appfactory.hypotheticalapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxIfC46ptVR3vD7_y9BczAxohbZBwpnd4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
