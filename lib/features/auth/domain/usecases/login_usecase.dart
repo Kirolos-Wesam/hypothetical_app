@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hypothetical_app/core/usecases/base_usecase.dart';
-import 'package:hypothetical_app/core/usecases/try_catch.dart';
+import 'package:hypothetical_app/core/usecases/firebase_try_catch.dart';
 import 'package:hypothetical_app/features/auth/domain/repositories/auth_repositories.dart';
 
 import '../../../../core/errors/failure.dart';
@@ -14,7 +14,7 @@ class LoginUseCase extends BaseUseCase<User, LoginParams> {
 
   @override
   Future<Either<Failure, User>> call(LoginParams params) async =>
-      await tryCatch(
+      await firebaseAuthTryCatch(
         tryFunction: () => _authRepositories.login(params),
       );
 }
