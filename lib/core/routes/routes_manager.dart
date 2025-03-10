@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hypothetical_app/core/routes/routes.dart';
+import 'package:hypothetical_app/features/auth/presentation/screens/login_screen.dart';
 import '../features/splash/presentation/screens/splash_screen.dart';
 
 import '/core/manager/strings_manager.dart';
@@ -14,7 +15,9 @@ class RoutesManager {
       case Routes.splashScreen:
         screen = const SplashScreen();
         break;
-
+      case Routes.loginScreen:
+        screen = LoginScreen();
+        break;
       default:
         screen = _undefinedRouteScreen();
         break;

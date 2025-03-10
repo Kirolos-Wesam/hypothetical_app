@@ -3,7 +3,7 @@ const String svgPath = 'assets/icons';
 const String lottiePath = 'assets/lottie';
 
 class AssetsManager {
-  static const String appIcon = '$imagesPath/catalyst_logo.png';
+  static const String appIcon = '$imagesPath/appfactory_logo.png';
 
   //images
   static const String placeholder = '$imagesPath/placeholder.png';
