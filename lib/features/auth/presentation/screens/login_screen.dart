@@ -26,56 +26,62 @@ class LoginScreen extends StatelessWidget {
               },
               child: CustomText("Dont have Account ? Sigun Up"))
           .withPadding(PaddingValues.p10.pAll),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(20.rs)),
-            child: Center(
-                child: Image.asset(
-              AssetsManager.appIcon,
-              width: 150.rw,
-              height: 150.rh,
-            )),
-          ),
-          AppSize.s20.verticalSpace,
-          const CustomText(
-            'Welcome To Hypothetical App',
-          ),
-          AppSize.s20.verticalSpace,
-          CustomTextField(
-            controller: emailController,
-            textInputType: TextInputType.phone,
-            hintText: 'Email',
-          ),
-          AppSize.s10.verticalSpace,
-          CustomTextField(
-              controller: passwordController,
-              hintText: 'Password',
-              textInputType: TextInputType.visiblePassword),
-          AppSize.s15.verticalSpace,
-          BlocConsumer<AuthBloc, AuthState>(
-            listener: (context, state) {
-              if (state is LoginSuccessState) {
-                showToast(state.uId);
-              }
-              if (state is LoginErrorState) {
-                showToast(state.error);
-              }
-            },
-            builder: (context, state) => LoginLoadingButton(
-              isLoading: state is LoginLoadingState,
-              onTap: () {
-                AuthBloc.get(context).add(LoginEvent(
-                    email: emailController.text,
-                    password: passwordController.text));
-              },
-              title: 'Login',
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(height: ScreenUtil().statusBarHeight),
+            AppSize.s15.verticalSpace,
+            ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(20.rs)),
+              child: Center(
+                  child: Image.asset(
+                AssetsManager.appIcon,
+                width: 150.rw,
+                height: 150.rh,
+              )),
             ),
-          ),
-        ],
-      ).withPadding(PaddingValues.p10.pAll),
+            AppSize.s20.verticalSpace,
+            const CustomText(
+              'Welcome To Hypothetical App',
+            ),
+            AppSize.s20.verticalSpace,
+            CustomTextField(
+              controller: emailController,
+              textInputType: TextInputType.phone,
+              hintText: 'Email',
+            ),
+            AppSize.s10.verticalSpace,
+            CustomTextField(
+                controller: passwordController,
+                hintText: 'Password',
+                textInputType: TextInputType.visiblePassword),
+            AppSize.s15.verticalSpace,
+            BlocConsumer<AuthBloc, AuthState>(
+              listener: (context, state) {
+                if (state is LoginSuccessState) {
+                  showToast('Login Successfully');
+
+                  Navigator.pushNamed(context, Routes.aiChatBotScreen);
+                }
+                if (state is LoginErrorState) {
+                  showToast(state.error, backGroundColor: Colors.red);
+                }
+              },
+              builder: (context, state) => LoginLoadingButton(
+                isLoading: state is LoginLoadingState,
+                onTap: () {
+                  AuthBloc.get(context).add(LoginEvent(
+                      email: emailController.text,
+                      password: passwordController.text));
+                },
+                title: 'Login',
+              ),
+            ),
+          ],
+        ).withPadding(PaddingValues.p10.pAll),
+      ),
     );
   }
 }

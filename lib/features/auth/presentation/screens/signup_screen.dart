@@ -11,6 +11,8 @@ import 'package:hypothetical_app/core/widgets/toast.dart';
 import 'package:hypothetical_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:hypothetical_app/features/auth/presentation/widgets/login_loading_button.dart';
 
+import '../../../../core/routes/routes.dart';
+
 class SignupScreen extends StatelessWidget {
   const SignupScreen({super.key});
 
@@ -30,7 +32,7 @@ class SignupScreen extends StatelessWidget {
           SizedBox(
             height: ScreenUtil().statusBarHeight,
           ),
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               BackButton(),
@@ -44,7 +46,7 @@ class SignupScreen extends StatelessWidget {
             ),
           ),
           AppSize.s10.verticalSpace,
-          CustomText('Create Account'),
+          const CustomText('Create Account'),
           AppSize.s15.verticalSpace,
           CustomTextField(
               hintText: 'Name',
@@ -60,21 +62,6 @@ class SignupScreen extends StatelessWidget {
               hintText: 'Password',
               controller: passwordController,
               textInputType: TextInputType.visiblePassword),
-          AppSize.s10.verticalSpace,
-          CustomTextField(
-              hintText: 'Confirm Password',
-              controller: confirmPasswordController,
-              textInputType: TextInputType.visiblePassword),
-          AppSize.s10.verticalSpace,
-          CustomTextField(
-              hintText: 'Phone Number',
-              controller: confirmPasswordController,
-              textInputType: TextInputType.phone),
-          AppSize.s10.verticalSpace,
-          CustomTextField(
-              hintText: 'Birth Date',
-              controller: dateController,
-              textInputType: TextInputType.name),
           AppSize.s20.verticalSpace,
           BlocConsumer<AuthBloc, AuthState>(
             listener: (context, state) {
@@ -86,8 +73,11 @@ class SignupScreen extends StatelessWidget {
                     useId: state.createAccountId,
                     birthDate: dateController.text));
               }
+              if (state is CreateAccountFireStoreSuccessState) {
+                Navigator.pushNamed(context, Routes.aiChatBotScreen);
+              }
               if (state is CreateAccountErrorState) {
-                showToast(state.error);
+                showToast(state.error, backGroundColor: Colors.red);
               }
             },
             builder: (context, state) {

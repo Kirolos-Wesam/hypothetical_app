@@ -29,6 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   animate_do: ^4.2.0
+  animated_text_kit: ^4.2.3
   awesome_snackbar_content: ^0.1.5
   bloc: ^9.0.0
   cached_network_image: ^3.4.1
@@ -76,6 +77,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/gif/
 
   fonts:
     - family: Poppins

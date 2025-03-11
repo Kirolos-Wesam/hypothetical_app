@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hypothetical_app/core/routes/routes.dart';
 import 'package:hypothetical_app/core/src/injection_container.dart';
+import 'package:hypothetical_app/features/ai_chat_bot/presentation/cubit/ai_bot_chat_cubit.dart';
+import 'package:hypothetical_app/features/ai_chat_bot/presentation/screens/ai_bot_chat_screen.dart';
 import 'package:hypothetical_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:hypothetical_app/features/auth/presentation/screens/login_screen.dart';
 import 'package:hypothetical_app/features/auth/presentation/screens/signup_screen.dart';
@@ -31,6 +33,14 @@ class RoutesManager {
           create: (context) =>
               AuthBloc(diInstance(), diInstance(), diInstance()),
           child: const SignupScreen(),
+        );
+        break;
+      case Routes.aiChatBotScreen:
+        screen = BlocProvider(
+          create: (context) => AiBotChatCubit(
+            diInstance(),
+          ),
+          child: AIBotChatScreen(),
         );
         break;
       default:

@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
+import 'package:hypothetical_app/core/api/api_consumer.dart';
+import 'package:hypothetical_app/core/api/app_interceptor.dart';
+import 'package:hypothetical_app/core/api/dio_consumer.dart';
 
 import 'package:hypothetical_app/core/cache/cache_consumer.dart';
 import 'package:hypothetical_app/core/cache/cache_consumer_impl.dart';
@@ -9,7 +12,13 @@ import 'package:hypothetical_app/core/features/theme/data/repositories/theme_rep
 import 'package:hypothetical_app/core/features/theme/domain/repositories/theme_repository.dart';
 import 'package:hypothetical_app/core/features/theme/domain/usecases/change_theme.dart';
 import 'package:hypothetical_app/core/features/theme/domain/usecases/get_saved_theme.dart';
+import 'package:hypothetical_app/core/manager/strings_manager.dart';
 import 'package:hypothetical_app/core/network/network_info.dart';
+import 'package:hypothetical_app/features/ai_chat_bot/data/datasources/ai_chat_bot_datasources.dart';
+import 'package:hypothetical_app/features/ai_chat_bot/data/repositories/ai_chat_bot_repositories_impl.dart';
+import 'package:hypothetical_app/features/ai_chat_bot/domain/repositories/ai_chat_bot_repositories.dart';
+import 'package:hypothetical_app/features/ai_chat_bot/domain/usecases/post_gemini_response_usecase.dart';
+import 'package:hypothetical_app/features/ai_chat_bot/presentation/cubit/ai_bot_chat_cubit.dart';
 import 'package:hypothetical_app/features/auth/data/datasources/auth_datasources.dart';
 import 'package:hypothetical_app/features/auth/data/repositories/auth_repositories_impl.dart';
 import 'package:hypothetical_app/features/auth/domain/repositories/auth_repositories.dart';
@@ -25,6 +34,7 @@ Future<void> initAppModule() async {
   //! Features
   initThemeModule();
   initAuthModule();
+  initAiChatBotModule();
 
   //! Core
   diInstance.registerLazySingleton<NetworkInfo>(
@@ -32,6 +42,9 @@ Future<void> initAppModule() async {
 
   diInstance.registerLazySingleton<CacheConsumer>(
       () => CacheConsumerImpl(sharedPreferences: diInstance()));
+
+  diInstance.registerLazySingleton<ApiConsumer>(() =>
+      DioConsumer(dio: diInstance(), baseUrl: StringsManager.geminiAIUrl));
   //!External
   final sharedPreferences = await SharedPreferences.getInstance();
   diInstance.registerLazySingleton(() => sharedPreferences);
@@ -75,6 +88,8 @@ Future<void> initAuthModule() async {
         firebaseAuth: diInstance(),
       ));
 
+  diInstance.registerLazySingleton(() => AppInterceptors());
+
   //Repository
   diInstance.registerLazySingleton<AuthRepositories>(
       () => AuthRepositoriesImpl(authDatasources: diInstance()));
@@ -84,4 +99,24 @@ Future<void> initAuthModule() async {
   diInstance.registerLazySingleton(() => CreateAccountUseCase(diInstance()));
   diInstance
       .registerLazySingleton(() => CreateAccountFirestoreUseCase(diInstance()));
+}
+
+Future<void> initAiChatBotModule() async {
+  //Bloc
+  diInstance.registerLazySingleton<AiBotChatCubit>(
+      () => AiBotChatCubit(diInstance()));
+
+  //DataSource
+  diInstance.registerLazySingleton<AiChatBotDatasources>(
+      () => AiChatBotDatasourcesImpl(
+            apiConsumer: diInstance(),
+          ));
+
+  //Repository
+  diInstance.registerLazySingleton<AiChatBotRepositories>(
+      () => AiChatBotRepositoriesImpl(aiChatBotDatasources: diInstance()));
+
+  //Use Cases
+  diInstance
+      .registerLazySingleton(() => PostGeminiResponseUseCase(diInstance()));
 }
