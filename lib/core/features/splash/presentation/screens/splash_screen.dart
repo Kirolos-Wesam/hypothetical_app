@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Timer? _timer;
 
   void _navigateToNextScreen() =>
-      Navigator.pushReplacementNamed(context, Routes.layoutScreen);
+      Navigator.pushReplacementNamed(context, Routes.loginScreen);
 
   void _startDelay() {
     _timer = Timer(const Duration(seconds: Values.splashDurationSeconds), () {

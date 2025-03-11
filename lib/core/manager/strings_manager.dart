@@ -1,4 +1,6 @@
 class StringsManager {
+  static const String geminiAIUrl =
+      'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
   static const String appName = 'Catalyst Task';
   static const String imageBasePath = "https://image.tmdb.org/t/p/w500/";
 

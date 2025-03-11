@@ -1,6 +1,6 @@
 class Routes {
   static const String splashScreen = '/';
-  static const String layoutScreen = '/mainLayoutScreen';
-  static const String movieDetailsScreen = '/movieDetailsScreen';
-  static const String moviesListScreen = '/moviesListScreen';
+  static const String loginScreen = '/loginScreen';
+  static const String signUpScreen = '/signUpScreen';
+  static const String aiChatBotScreen = '/aiChatBotScreen';
 }

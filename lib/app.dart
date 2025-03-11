@@ -7,9 +7,8 @@ import 'package:hypothetical_app/core/manager/strings_manager.dart';
 import 'package:hypothetical_app/core/network/cubit/network_connectivity_cubit.dart';
 import 'package:hypothetical_app/core/routes/routes.dart';
 import 'package:hypothetical_app/core/routes/routes_manager.dart';
+import 'package:hypothetical_app/core/src/injection_container.dart';
 import 'package:hypothetical_app/core/theme/themes_manager.dart';
-
-import 'injection_container.dart';
 
 class MyApp extends StatelessWidget {
   final double? designWidth;
